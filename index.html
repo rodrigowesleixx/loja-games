@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEXUS — Game Store</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">NEXUS</a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Início</a>
+      <a href="pages/catalogo.html">Catálogo</a>
+      <a href="pages/personas.html">Personas</a>
+      <a href="pages/sobre.html">Sobre</a>
+    </div>
+    <div class="nav-right">
+      <a href="pages/login.html" id="nav-login-btn" class="login-nav-btn">Entrar</a>
+      <div id="nav-user-menu" class="nav-user-menu" style="display:none">
+        <span id="nav-username" class="nav-username"></span>
+        <button class="logout-btn" onclick="logout()">Sair</button>
+      </div>
+      <button class="cart-btn" onclick="toggleCart()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <span class="hero-tag">Novidade da semana</span>
+      <h1 class="hero-title">Cyberpunk<br><span>2077</span></h1>
+      <p class="hero-desc">Explore Night City no RPG de mundo aberto definitivo. Edição completa com todos os DLCs.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="addToCart('Cyberpunk 2077', 149.90)">Comprar — R$ 149,90</button>
+        <button class="btn-ghost">Ver detalhes</button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="game-cover featured">
+        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1091500/library_600x900.jpg" alt="Cyberpunk 2077" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none'">
+        <div class="cover-inner">
+          <span class="cover-genre">RPG · Ação</span>
+          <span class="cover-title">CP2077</span>
+          <span class="cover-rating">★ 9.2</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESTAQUES -->
+  <section class="section">
+    <div class="section-header">
+      <h2>Em destaque</h2>
+      <a href="pages/catalogo.html" class="see-all">Ver todos →</a>
+    </div>
+    <div class="games-grid" id="featured-grid"></div>
+  </section>
+
+  <!-- CATEGORIAS -->
+  <section class="section">
+    <div class="section-header">
+      <h2>Categorias</h2>
+    </div>
+    <div class="categories-grid">
+      <div class="category-card" onclick="filterCategory('RPG')">
+        <span class="cat-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M8 26L16 6L24 26" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M10.5 20H21.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="16" cy="4" r="2" fill="currentColor"/>
+</svg></span>
+        <span>RPG</span>
+      </div>
+      <div class="category-card" onclick="filterCategory('Ação')">
+        <span class="cat-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M6 16L14 8L26 20L18 28L6 16Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M20 6L26 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <path d="M6 26L10 22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg></span>
+        <span>Ação</span>
+      </div>
+      <div class="category-card" onclick="filterCategory('Estratégia')">
+        <span class="cat-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="4" y="4" width="10" height="10" rx="2" stroke="currentColor" stroke-width="2"/>
+  <rect x="18" y="4" width="10" height="10" rx="2" stroke="currentColor" stroke-width="2"/>
+  <rect x="4" y="18" width="10" height="10" rx="2" stroke="currentColor" stroke-width="2"/>
+  <rect x="18" y="18" width="10" height="10" rx="2" stroke="currentColor" stroke-width="2"/>
+  <path d="M14 9H18M9 14V18M23 14V18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg></span>
+        <span>Estratégia</span>
+      </div>
+      <div class="category-card" onclick="filterCategory('Esportes')">
+        <span class="cat-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="16" cy="16" r="11" stroke="currentColor" stroke-width="2"/>
+  <path d="M16 5C16 5 12 10 12 16C12 22 16 27 16 27" stroke="currentColor" stroke-width="2"/>
+  <path d="M16 5C16 5 20 10 20 16C20 22 16 27 16 27" stroke="currentColor" stroke-width="2"/>
+  <path d="M5 16H27" stroke="currentColor" stroke-width="2"/>
+</svg></span>
+        <span>Esportes</span>
+      </div>
+      <div class="category-card" onclick="filterCategory('Terror')">
+        <span class="cat-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M16 4C10.477 4 6 8.477 6 14C6 17.5 7.5 20.5 10 22.5V26H22V22.5C24.5 20.5 26 17.5 26 14C26 8.477 21.523 4 16 4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M10 26H22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="13" cy="14" r="1.5" fill="currentColor"/>
+  <circle cx="19" cy="14" r="1.5" fill="currentColor"/>
+</svg></span>
+        <span>Terror</span>
+      </div>
+      <div class="category-card" onclick="filterCategory('Corrida')">
+        <span class="cat-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M4 20H28" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <path d="M6 20L9 13H23L26 20" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+  <circle cx="10" cy="22" r="2" stroke="currentColor" stroke-width="2"/>
+  <circle cx="22" cy="22" r="2" stroke="currentColor" stroke-width="2"/>
+  <path d="M13 13V9H19V13" stroke="currentColor" stroke-width="2"/>
+</svg></span>
+        <span>Corrida</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIS VENDIDOS -->
+  <section class="section">
+    <div class="section-header">
+      <h2>Mais vendidos</h2>
+      <a href="pages/catalogo.html" class="see-all">Ver todos →</a>
+    </div>
+    <div class="games-grid" id="bestsellers-grid"></div>
+  </section>
+
+  <!-- CART SIDEBAR -->
+  <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+  <aside class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-header">
+      <h3>Carrinho</h3>
+      <button onclick="toggleCart()" class="close-btn">✕</button>
+    </div>
+    <div class="cart-items" id="cart-items">
+      <p class="empty-cart">Seu carrinho está vazio.</p>
+    </div>
+    <div class="cart-footer" id="cart-footer" style="display:none">
+      <div class="cart-total">
+        <span>Total</span>
+        <strong id="cart-total">R$ 0,00</strong>
+      </div>
+      <button class="btn-primary full" onclick="window.location.href='pages/checkout.html'">Finalizar compra</button>
+    </div>
+  </aside>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <footer class="footer">
+    <p>© 2026 NEXUS Game Store. Feito e desenvolvido por N7. Todos os direitos reservados.
+    </p>
+  </footer>
+
+  <script src="js/covers.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
